@@ -43,52 +43,67 @@ sPDF.mena<-sPDF[which(sPDF$ISO3 %in% df$ISO3166.1.Alpha.3),]
 
 
 par(.pardefault)
-pal1 <- c(brewer.pal(8, "Set3")[c(4,3)], brewer.pal(8, "Set2")[c(6)])
-pal2 <- c(brewer.pal(8, "Set2")[c(4,3)],brewer.pal(8, "Dark2")[c(6)])
-pal3 <- c(brewer.pal(8, "Dark2")[c(4,5)], brewer.pal(5, "Accent")[5])
-leg.x <- -20
+cluster1 <- c(brewer.pal(8, "YlOrRd"))[3:5]
+cluster2 <- c(brewer.pal(8, "PuBu"))[5:7]
+cluster3 <- c(brewer.pal(8, "YlGnBu"))[3:5]
+pal1 <- c(cluster1[1], cluster2[1], cluster3[1])
+pal2 <- c(cluster1[2], cluster2[2], cluster3[2])
+pal3 <- c(cluster1[3], cluster2[3], cluster3[3])
+
+leg.x <- -12
 leg.y <- 45
-par(mfrow=c(3,1))
-par(mar = c(1,1,2,1))
+w = 5
+h = 2.5
+cex = 0.9
+yi = 1.2
+#par(mfrow=c(3,1))
 par(xpd = TRUE)
+par(.pardefault)
+par(mar = c(1,1,1,1))
+
+
 # plot background
-plot(sPDF, xlim = c(-12, 62), ylim = c(10, 42),
+plot(sPDF, xlim = c(-12, 62), ylim = c(15, 42),
      border="grey70", col="white")
+
 
 mapPolys(sPDF.mena, nameColumnToPlot = "Clustering50",addLegend=FALSE,
          mapTitle ="",  borderCol="white", numCats = 3, catMethod = "categorical",
          add = TRUE, colourPalette = pal1)
-mtext( "Clustering 1950/55", cex = 1.5)
-legend(x=leg.x, y=leg.y,c("Cluster 1", "Cluster 2", "Cluster 3") , fill = pal1,
-       title = "Clustering 1950/55", 
-       cex = 1.5 , bty = "n", y.intersp = 0.5)
+mtext( "A1", cex = 1)
+legend(x=leg.x, y=leg.y,c("C11", "C21", "C31") , fill = pal1,
+       cex = cex ,bty = "n", y.intersp = yi)
+
+
+dev.copy2eps(file="figures/map1.eps", height=h, width=w)
+
 
 # plot background
-plot(sPDF, xlim = c(-12, 62), ylim = c(10, 42),
+plot(sPDF, xlim = c(-12, 62), ylim = c(15, 42),
      border="grey70", col="white")
 
 mapPolys(sPDF.mena, nameColumnToPlot = "Clustering80",addLegend=FALSE,
          mapTitle ="",  borderCol="white", numCats = 3, catMethod = "categorical",
          add = TRUE, colourPalette =pal2)
 
-mtext( "Clustering 1980/85", cex = 1.5)
+mtext( "A2", cex = 1)
 
-legend(x=leg.x, y=leg.y,c("Cluster 1", "Cluster 2", "Cluster 3") , fill = pal2,
-       title = "Clustering 1980/85",
-       cex = 1.5 , bty = "n", y.intersp = 0.5)
+legend(x=leg.x, y=leg.y,c("C12", "C22", "C32") , fill = pal2,
+       cex = cex ,bty = "n", y.intersp = yi)
+dev.copy2eps(file="figures/map2.eps", height=h, width=w)
+
 # plot background
-plot(sPDF, xlim = c(-12, 62), ylim = c(10, 42),
+plot(sPDF, xlim = c(-12, 62), ylim = c(15, 42),
      border="grey70", col="white")
 
 mapPolys(sPDF.mena, nameColumnToPlot = "Clustering10",addLegend=FALSE,
          mapTitle ="",  borderCol="white", numCats = 3, catMethod = "categorical",
          add = TRUE, colourPalette = pal3)
-mtext( "Clustering 2010/15", cex = 1.5)
+mtext( "A3", cex = 1)
 
-legend(x=leg.x, y=leg.y,c("Cluster 1", "Cluster 2", "Cluster 3") , fill = pal3,
-       title = "Clustering 2010/15",
-       cex = 1.5 , bty = "n", y.intersp = 0.5)
+legend(x=leg.x, y=leg.y,c("C13", "C23", "C33") , fill = pal3,
+       cex = cex ,bty = "n", y.intersp = yi)
+dev.copy2eps(file="figures/map3.eps", height=h, width=w)
 
-
-dev.copy2pdf(file="figures/draftMaps.pdf", height=20, width=12)
+par(.pardefault)
 
